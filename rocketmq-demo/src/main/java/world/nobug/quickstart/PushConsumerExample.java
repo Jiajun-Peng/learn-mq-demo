@@ -1,4 +1,4 @@
-package world.nobug.QuickStart;
+package world.nobug.quickstart;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -36,6 +36,7 @@ public class PushConsumerExample {
         // 初始化PushConsumer，需要绑定消费者分组ConsumerGroup、通信参数以及订阅关系。
         PushConsumer pushConsumer = provider.newPushConsumerBuilder()
                 .setClientConfiguration(clientConfiguration)
+                .setConsumptionThreadCount(2)
                 // 设置消费者分组。
                 .setConsumerGroup(consumerGroup)
                 // 设置预绑定的订阅关系。
@@ -43,7 +44,7 @@ public class PushConsumerExample {
                 // 设置消费监听器。
                 .setMessageListener(messageView -> {
                     // 处理消息并返回消费结果。
-                    logger.info("Consume message successfully, messageId={}", messageView.getMessageId());
+                    logger.info("Consume message successfully, messageId={}", messageView);
                     return ConsumeResult.SUCCESS;
                 })
                 .build();
